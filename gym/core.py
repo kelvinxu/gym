@@ -262,6 +262,14 @@ class Wrapper(Env):
         self.reward_range = self.env.reward_range
         self._ensure_no_double_wrap()
 
+    def randomize(self):
+        """ Scambles the state transition distribution + initial state distribution
+        """
+        if hasattr(self.env, 'randomize'):
+            return self.env.randomize() 
+        else:
+            raise NotImplementedError
+ 
     @classmethod
     def class_name(cls):
         return cls.__name__
@@ -275,7 +283,7 @@ class Wrapper(Env):
                 env = env.env
             else:
                 break
-
+       
     def _step(self, action):
         return self.env.step(action)
 
